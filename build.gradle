@@ -15,6 +15,9 @@ repositories {
 dependencies {
 }
 
+java {
+    withSourcesJar()
+}
 
 jar {
     manifest {
