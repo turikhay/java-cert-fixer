@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'com.turikhay'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+
+jar {
+    manifest {
+        attributes(
+                "Premain-Class": "com.turikhay.cja.CertJavaAgent"
+        )
+    }
+}
