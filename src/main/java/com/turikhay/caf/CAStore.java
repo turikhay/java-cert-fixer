@@ -1,4 +1,4 @@
-package com.turikhay.cja;
+package com.turikhay.caf;
 
 import java.io.IOException;
 import java.io.InputStream;

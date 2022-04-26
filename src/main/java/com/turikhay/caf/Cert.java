@@ -1,4 +1,6 @@
-package com.turikhay.cja;
+package com.turikhay.caf;
+
+import com.turikhay.caf.util.DualFingerprint;
 
 import javax.security.auth.x500.X500Principal;
 import java.security.cert.*;

@@ -1,4 +1,4 @@
-package com.turikhay.cja;
+package com.turikhay.caf.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

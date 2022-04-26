@@ -1,4 +1,4 @@
-package com.turikhay.cja;
+package com.turikhay.caf;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;

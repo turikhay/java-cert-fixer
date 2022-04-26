@@ -1,4 +1,6 @@
-package com.turikhay.cja;
+package com.turikhay.caf;
+
+import com.turikhay.caf.util.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,20 +9,44 @@ import java.security.KeyStore;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 
-import static com.turikhay.cja.CAStore.load;
+import static com.turikhay.caf.CAStore.load;
 
-public class CertJavaAgent {
+public class CAFixer {
 
+    // Java Agent entry point
     public static void premain(String args, Instrumentation inst) {
+        fix();
+    }
+
+    // Main class entry point
+    public static void main(String[] args) {
+        fix();
+    }
+
+    // Third-party calls entry points
+    public static void fix(Logger logger) {
+        new CAFixer(logger == null ? Logger.PrintLogger.ofSystem() : logger).fixCA();
+    }
+
+    public static void fix() {
+        fix(null);
+    }
+
+    private final Logger logger;
+
+    private CAFixer(Logger logger) {
+        this.logger = logger;
+    }
+
+    private void fixCA() {
         try {
             updateJreCAStoreIfNecessary();
         } catch (Exception e) {
-            System.err.println(LOG_PREFIX + "Failed");
-            e.printStackTrace();
+            logger.logError(LOG_PREFIX + "Failed", e);
         }
     }
 
-    private static void updateJreCAStoreIfNecessary() throws Exception {
+    private void updateJreCAStoreIfNecessary() throws Exception {
         CAStore jreCAStore = loadJreCAStore();
         CAStore embeddedCAStore = loadEmbeddedCAStore();
         if (doesContainAllCerts(jreCAStore, embeddedCAStore)) {
@@ -32,16 +58,7 @@ public class CertJavaAgent {
         KeyStoreManager.useNewKeyStore(mergedKeyStore);
     }
 
-    private static CAStore loadJreCAStore() throws Exception {
-        File cacertsFile = new File(System.getProperty("java.home"), "lib/security/cacerts");
-        return load(new FileInputStream(cacertsFile), KeyStore.getDefaultType(), "changeit");
-    }
-
-    private static CAStore loadEmbeddedCAStore() throws Exception {
-        return load(CertJavaAgent.class.getResourceAsStream("ca.jks"), "jks", "supersecretpassword");
-    }
-
-    private static boolean doesContainAllCerts(CAStore jreCAStore, CAStore embeddedCAStore) {
+    private boolean doesContainAllCerts(CAStore jreCAStore, CAStore embeddedCAStore) {
         boolean allSet = true;
         for (Cert cert : embeddedCAStore.getCerts()) {
             boolean shouldSkip = cert.asX509().map(x509 -> {
@@ -67,9 +84,18 @@ public class CertJavaAgent {
         return allSet;
     }
 
-    private static void log(String message) {
-        System.out.println(LOG_PREFIX + message);
+    private void log(String message) {
+        logger.logMessage(LOG_PREFIX + message);
     }
 
     private static final String LOG_PREFIX = "[CertJavaAgent] ";
+
+    private static CAStore loadJreCAStore() throws Exception {
+        File cacertsFile = new File(System.getProperty("java.home"), "lib/security/cacerts");
+        return load(new FileInputStream(cacertsFile), KeyStore.getDefaultType(), "changeit");
+    }
+
+    private static CAStore loadEmbeddedCAStore() throws Exception {
+        return load(CAFixer.class.getResourceAsStream("ca.jks"), "jks", "supersecretpassword");
+    }
 }

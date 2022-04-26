@@ -22,7 +22,8 @@ java {
 jar {
     manifest {
         attributes(
-                "Premain-Class": "com.turikhay.cja.CertJavaAgent"
+                "Premain-Class": "com.turikhay.caf.CAFixer",
+                "Main-Class": "com.turikhay.caf.CAFixer"
         )
     }
 }
