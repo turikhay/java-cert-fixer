@@ -10,9 +10,13 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://libraries.minecraft.net"
+    }
 }
 
 dependencies {
+    implementation "net.minecraft:launchwrapper:1.8"
 }
 
 java {
