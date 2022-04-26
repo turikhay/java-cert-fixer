@@ -88,7 +88,7 @@ public class CAFixer {
         logger.logMessage(LOG_PREFIX + message);
     }
 
-    private static final String LOG_PREFIX = "[CertJavaAgent] ";
+    private static final String LOG_PREFIX = "[CAFixer] ";
 
     private static CAStore loadJreCAStore() throws Exception {
         File cacertsFile = new File(System.getProperty("java.home"), "lib/security/cacerts");
