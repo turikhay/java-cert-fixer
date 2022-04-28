@@ -10,8 +10,6 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class Tweaker implements ITweaker {
-    private List<String> args;
-
     static {
         CAFixer.fix(new Logger() {
             @Override
@@ -28,7 +26,6 @@ public class Tweaker implements ITweaker {
 
     @Override
     public void acceptOptions(List<String> args, File gameDir, File assetsDir, String profile) {
-        this.args = args;
     }
 
     @Override
@@ -42,6 +39,6 @@ public class Tweaker implements ITweaker {
 
     @Override
     public String[] getLaunchArguments() {
-        return this.args.toArray(new String[0]);
+        return new String[0];
     }
 }
