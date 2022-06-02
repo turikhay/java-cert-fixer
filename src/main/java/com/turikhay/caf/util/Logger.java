@@ -38,7 +38,7 @@ public interface Logger {
             logErrorConsumer.accept(message, error);
         }
 
-        static class Builder {
+        public static class Builder {
             private Consumer<String> logMessageConsumer;
             private BiConsumer<String, Throwable> logErrorConsumer;
 
