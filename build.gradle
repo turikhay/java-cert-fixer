@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group 'com.turikhay'
@@ -16,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation "net.minecraft:launchwrapper:1.8"
+    compileOnly "net.minecraft:launchwrapper:1.8"
 }
 
 java {
@@ -30,4 +31,44 @@ jar {
                 "Main-Class": "com.turikhay.caf.CAFixer"
         )
     }
+}
+
+publishing {
+  publications {
+      maven(MavenPublication) {
+          from components.java
+          pom {
+            url = 'https://github.com/turikhay/java-cert-fixer'
+            licenses {
+              license {
+                name = 'MIT License'
+                url = 'https://opensource.org/license/mit/'
+              }
+            }
+            developers {
+              developer {
+                id = 'turikhay'
+                name = 'Artur Khusainov'
+                email = 'git@turikhay.com'
+              }
+            }
+            scm {
+              connection = 'scm:git:git://github.com/turikhay/java-cert-fixer.git'
+              developerConnection = 'scm:git:ssh://github.com/turikhay/java-cert-fixer.git'
+              url = 'https://github.com/turikhay/java-cert-fixer'
+            }
+          }
+      }
+  }
+  repositories {
+    maven {
+      // url = layout.buildDirectory.dir('repo')
+      name = "GitHub"
+      url = "https://maven.pkg.github.com/turikhay/java-cert-fixer"
+      credentials {
+        username = System.getenv("GITHUB_ACTOR")
+        password = System.getenv("GITHUB_TOKEN")
+      }
+    }
+  }
 }
