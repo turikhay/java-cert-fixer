@@ -1,5 +1,11 @@
 # CAFixer
 
+<p>
+    <a href="https://central.sonatype.com/artifact/com.turikhay/ca-fixer/1.6/overview">
+        <img src="https://img.shields.io/maven-central/v/com.turikhay/ca-fixer" />
+    </a>
+</p>
+
 Zero-dependency utility that adds root certificate authority. In our case it only contains [ISRG Root X1](https://letsencrypt.org/certificates/) for older Java 8 versions (before Update 101)<sup>[1](https://letsencrypt.org/docs/certificate-compatibility/)</sup>.
 
 ## How to use?
