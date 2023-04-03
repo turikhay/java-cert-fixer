@@ -3,8 +3,16 @@ package com.turikhay.caf.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Stores both SHA-1 and SHA-256 checksum
+ */
 public class DualFingerprint {
 
+    /**
+     * Calculates dual fingerprint of the given byte array
+     * @param data byte array to compute checksum for
+     * @return DualFingerprint instance
+     */
     public static DualFingerprint compute(byte[] data) {
         return new DualFingerprint(
                 computeWithAlgo(data, "SHA-1"),
@@ -14,10 +22,18 @@ public class DualFingerprint {
 
     private final String sha1, sha256;
 
+    /**
+     * Get SHA-1
+     * @return SHA-1
+     */
     public String getSha1() {
         return sha1;
     }
 
+    /**
+     * Get SHA-256
+     * @return SHA-256
+     */
     public String getSha256() {
         return sha256;
     }

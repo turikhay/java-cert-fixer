@@ -5,7 +5,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 import java.security.KeyStore;
 
-public class KeyStoreManager {
+class KeyStoreManager {
 
     public static void useNewKeyStore(KeyStore keyStore) throws Exception {
         TrustManagerFactory instance = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());

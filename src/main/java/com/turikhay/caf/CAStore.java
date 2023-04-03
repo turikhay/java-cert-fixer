@@ -10,7 +10,7 @@ import java.security.cert.CertificateException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CAStore {
+class CAStore {
 
     public static CAStore load(InputStream input, String type, String password) throws Exception {
         final KeyStore keyStore = KeyStore.getInstance(type);

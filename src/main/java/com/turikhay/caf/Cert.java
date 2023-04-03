@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-public class Cert {
+class Cert {
     private final Certificate certificate;
     private final Set<String> aliases;
 

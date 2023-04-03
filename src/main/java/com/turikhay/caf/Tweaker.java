@@ -8,7 +8,10 @@ import net.minecraft.launchwrapper.LogWrapper;
 import java.io.File;
 import java.util.List;
 
-@SuppressWarnings("unused")
+/**
+ * Tweaker for modern Minecraft versions
+ * @see com.turikhay.caf.Tweaker2 modified Tweaker
+ */
 public class Tweaker implements ITweaker {
     static {
         CAFixer.fix(new Logger() {

@@ -11,23 +11,43 @@ import java.security.cert.CertificateNotYetValidException;
 
 import static com.turikhay.caf.CAStore.load;
 
+/**
+ * Zero-dependency utility that adds ISRG Root X1 certificate authority for older Java 8 versions (before Update 101)
+ */
 public class CAFixer {
 
-    // Java Agent entry point
+    /**
+     * Runs the utility. Typically called by VM if CAFixer is used as a Java agent.
+     * 
+     * @param args args
+     * @param inst instrumentation
+     */
     public static void premain(String args, Instrumentation inst) {
         fix();
     }
 
-    // Main class entry point
+    /**
+     * Runs the utility and exits
+     * 
+     * @param args args
+     * 
+     * @see #fix()
+     */
     public static void main(String[] args) {
         fix();
     }
 
-    // Third-party calls entry points
+    /**
+     * Runs the utility with specified Logger
+     * @param logger custom logger implementation; will print to stdout if {@code null}
+     */
     public static void fix(Logger logger) {
         new CAFixer(logger == null ? Logger.PrintLogger.ofSystem() : logger).fixCA();
     }
 
+    /**
+     * Runs the utility. Will print logs to stdout.
+     */
     public static void fix() {
         fix(null);
     }

@@ -9,7 +9,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
+/**
+ * Modified Tweaker class for modern Minecraft versions
+ */
 public class Tweaker2 implements ITweaker {
     static {
         CAFixer.fix(new Logger() {
