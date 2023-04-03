@@ -32,6 +32,24 @@ public static void main(String[] args) {
 }
 ```
 
+## Include as a dependency
+
+### Maven
+
+```xml
+<dependency>
+    <groupId>com.turikhay</groupId>
+    <artifactId>ca-fixer</artifactId>
+    <version>1.6</version>
+</dependency>
+```
+
+### Gradle
+
+```gradle
+implementation 'com.turikhay:ca-fixer:1.6'
+```
+
 ## Note: How to create my own .jks file
 
 1. Create an empty .jks
