@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'signing'
 }
 
 group 'com.turikhay'
@@ -10,55 +11,57 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
-    mavenCentral()
-    maven {
-        url "https://libraries.minecraft.net"
-    }
+  mavenCentral()
+  maven {
+    url "https://libraries.minecraft.net"
+  }
 }
 
 dependencies {
-    compileOnly "net.minecraft:launchwrapper:1.8"
+  compileOnly "net.minecraft:launchwrapper:1.8"
 }
 
 java {
-    withSourcesJar()
+  withSourcesJar()
 }
 
 jar {
-    manifest {
-        attributes(
-                "Premain-Class": "com.turikhay.caf.CAFixer",
-                "Main-Class": "com.turikhay.caf.CAFixer"
-        )
-    }
+  manifest {
+    attributes(
+      "Premain-Class": "com.turikhay.caf.CAFixer",
+      "Main-Class": "com.turikhay.caf.CAFixer"
+    )
+  }
 }
 
 publishing {
   publications {
-      maven(MavenPublication) {
-          from components.java
-          pom {
-            url = 'https://github.com/turikhay/java-cert-fixer'
-            licenses {
-              license {
-                name = 'MIT License'
-                url = 'https://opensource.org/license/mit/'
-              }
-            }
-            developers {
-              developer {
-                id = 'turikhay'
-                name = 'Artur Khusainov'
-                email = 'git@turikhay.com'
-              }
-            }
-            scm {
-              connection = 'scm:git:git://github.com/turikhay/java-cert-fixer.git'
-              developerConnection = 'scm:git:ssh://github.com/turikhay/java-cert-fixer.git'
-              url = 'https://github.com/turikhay/java-cert-fixer'
-            }
+    maven(MavenPublication) {
+      from components.java
+      pom {
+        name = 'CAFixer'
+        description = 'Zero-dependency utility that adds ISRG Root X1 certificate authority for older Java 8 versions (before Update 101)'
+        url = 'https://github.com/turikhay/java-cert-fixer'
+        licenses {
+          license {
+            name = 'MIT License'
+            url = 'https://opensource.org/license/mit/'
           }
+        }
+        developers {
+          developer {
+            id = 'turikhay'
+            name = 'Artur Khusainov'
+            email = 'git@turikhay.com'
+          }
+        }
+        scm {
+          connection = 'scm:git:git://github.com/turikhay/java-cert-fixer.git'
+          developerConnection = 'scm:git:ssh://github.com/turikhay/java-cert-fixer.git'
+          url = 'https://github.com/turikhay/java-cert-fixer'
+        }
       }
+    }
   }
   repositories {
     maven {
@@ -71,4 +74,13 @@ publishing {
       }
     }
   }
+}
+
+signing {
+  useGpgCmd()
+  sign publishing.publications.maven
+}
+
+tasks.withType(Sign) {
+    onlyIf("ENABLE_SIGNGING = true") { System.getenv("ENABLE_SIGNING") == "true" }
 }
