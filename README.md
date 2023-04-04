@@ -1,7 +1,7 @@
 # CAFixer
 
 <p>
-    <a href="https://central.sonatype.com/search?q=ca-fixer&namespace=com.turikhay">
+    <a href="https://mvnrepository.com/artifact/com.turikhay/ca-fixer">
         <img src="https://img.shields.io/maven-central/v/com.turikhay/ca-fixer" />
     </a>
 </p>
